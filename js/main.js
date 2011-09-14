@@ -1,5 +1,5 @@
 $(function(){
-	var latitude, longitude;
+	var latitude = 43.465187, longitude = -80.522372;
 	var places = [];
 	
     if(geo_position_js.init()){
