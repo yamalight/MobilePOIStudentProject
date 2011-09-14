@@ -26,7 +26,17 @@
 		
 		<title>Mobile POI Search Student Project</title>
 	</head>
-	<body>			
+	<body>
+		<!-- TEMPLATES -->
+		<script id="placeTemplate" type="text/x-jquery-tmpl">
+			<li>
+				<a href="#" data-url="${url}">
+					${name}
+				</a>
+			</li>
+		</script>
+		
+	
 		<!-- home page -->
 		<div data-role="page" id="homePage">
 			<div data-role="header">
