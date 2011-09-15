@@ -25,21 +25,20 @@ $(function(){
 		}
 		
 		var radious = $("#formRadius").val();
-		console.log('radious: ' + radious);
 		var results = $("#formResults").val();
-		console.log('results: ' + results);
 		var catType = $("#formSelectType").val();
-		console.log('type: ' + catType);
 	
 		var query = "\
 			PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \
 			PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> \
 			PREFIX place: <http://linkedgeodata.org/ontology/> \
-			SELECT DISTINCT ?place ?placeName WHERE { \
+			PREFIX placeProp:<http://linkedgeodata.org/property/> \
+			SELECT DISTINCT ?place ?placeName  (bif:st_distance(?geo,bif:st_point ("+longitude+", "+latitude+"))) as ?distance ?url WHERE { \
 			?place geo:geometry ?geo .\
 			?place a place:" + catType + " . \
 			?place rdfs:label ?placeName . \
-			Filter(bif:st_intersects (?geo, bif:st_point ("+longitude+", "+latitude+"), " + radious + ")) \
+			Filter(bif:st_intersects (?geo, bif:st_point ("+longitude+", "+latitude+"), " + radious + ")) .\
+			OPTIONAL{ ?place placeProp:url ?url} \
 			} LIMIT " + results + " \
 		";
 		
@@ -51,10 +50,13 @@ $(function(){
 						
 			for(var i = 0; i < results.length; i++){
 				places.push({
-					url: results[i].place.value,
-					name: results[i].placeName.value
+					uri: results[i].place.value,
+					name: results[i].placeName.value,
+					distance: results[i].distance.value,
+					url: results[i].url.value
 				});
 			}
+			console.log('places: ' + places);
 			
 			$.mobile.changePage("pages/results.html");
 		});
