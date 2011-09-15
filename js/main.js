@@ -56,22 +56,12 @@ $(function(){
 				places.push({
 					uri: results[i].place.value,
 					name: results[i].placeName.value,
-					geo: results[i].geo.value.replace("POINT(","").replace(")","").split(" ").reverse().toString(),
+                    geo: results[i].geo.value.replace("POINT(","").replace(")","").split(" ").reverse().toString(),
 					distance: Math.round( parseFloat(results[i].distance.value)*100)/100 ,
-					url: results[i].url != undefined ? results[i].url.value : "",
+					url: typeof results[i].url != "undefined" ? results[i].url.value : ""
 				});
-				/*try {
-				    places.push({
-				        url: results[i].url.value
-				    });
-				}
-				catch(TypeError){
-				    places.push({
-				        url: ""
-				    });
-				}
-			}*/
-			//console.log('places: ' + places);
+			}
+			console.log('places: ' + places);
 			
 			$.mobile.changePage("pages/results.html");
 		});
