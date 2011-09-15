@@ -42,10 +42,46 @@
 			<div data-role="header">
 				<h1>Mobile POI Search</h1>
 			</div>
+			
+			<div data-role="fieldcontain">
+            <label for="select-choice-1" class="select">Choose:</label>
+            <select name="select-choice-1" id="formSelectType">
+                <optgroup label="Entertainment">
+	                <option value="Restaurant">Restaurants</option>
+	                <option value="Bar">Bars</option>
+	                <option value="CoffeeShop">Coffee Shops</option>
+	                <option value="express">Cinemas</option>
+                </optgroup>
+                <optgroup label="Tourism">
+	                <option value="standard">Restaurants</option>
+	                <option value="rush">Bars</option>
+	                <option value="express">Cinemas</option>
+                </optgroup>
+                <optgroup label="Health">
+	                <option value="standard">Restaurants</option>
+	                <option value="rush">Bars</option>
+	                <option value="express">Cinemas</option>
+                </optgroup>
+            </select>
+            </div>
 		
+		    <div data-role="collapsible" data-collapsed="true"> 
+	        <h3>More options</h3>
+
+		        <div data-role="fieldcontain">
+                	<label for="slider">Radious (Km)</label>
+                	<input type="range" name="slider" id="formRadius" value="1" min="1" max="20"  />
+                </div>
+                <div data-role="fieldcontain">
+                	<label for="slider">Radious (Km)</label>
+                	<input type="range" name="slider" id="formResults" value="10" min="10" max="30"  />
+                </div>
+            </div>
+
 			<div data-role="content">
-				<a href="#" data-role="button" id="loadData">Press me!</a> 
+				<a href="#" data-role="button" id="loadData">Search!</a> 
 			</div>
+			
 		</div>
 	</body>
 </html>

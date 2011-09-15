@@ -23,6 +23,13 @@ $(function(){
 			alert("Cannot detect location");
 			return;
 		}
+		
+		var radious = $("#formRadius").val();
+		console.log('radious: ' + radious);
+		var results = $("#formResults").val();
+		console.log('results: ' + results);
+		var catType = $("#formSelectType").val();
+		console.log('type: ' + catType);
 	
 		var query = "\
 			PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \
@@ -30,10 +37,10 @@ $(function(){
 			PREFIX place: <http://linkedgeodata.org/ontology/> \
 			SELECT DISTINCT ?place ?placeName WHERE { \
 			?place geo:geometry ?geo .\
-			?place a place:Restaurant . \
+			?place a place:" + catType + " . \
 			?place rdfs:label ?placeName . \
-			Filter(bif:st_intersects (?geo, bif:st_point ("+longitude+", "+latitude+"), 10)) \
-			} LIMIT 10 \
+			Filter(bif:st_intersects (?geo, bif:st_point ("+longitude+", "+latitude+"), " + radious + ")) \
+			} LIMIT " + results + " \
 		";
 		
 		var url = "http://linkedgeodata.org/sparql?format=json&query="+encodeURIComponent(query);
