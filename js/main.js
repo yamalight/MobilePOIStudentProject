@@ -17,6 +17,10 @@ $(function(){
         latitude = longitude = -1;
         console.log('error finding location');
     }
+    
+    $("#gotoIndex").live('vclick', function(){
+        $.mobile.changePage("index.html");
+    });
 
 	$("#loadData").live('vclick', function(){
 		if( latitude == -1 && longitude == -1 ){
@@ -33,7 +37,7 @@ $(function(){
 			PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> \
 			PREFIX place: <http://linkedgeodata.org/ontology/> \
 			PREFIX placeProp:<http://linkedgeodata.org/property/> \
-			SELECT DISTINCT ?place ?placeName  (bif:st_distance(?geo,bif:st_point ("+longitude+", "+latitude+"))) as ?distance ?url WHERE { \
+			SELECT DISTINCT ?place ?placeName  (bif:st_distance(?geo,bif:st_point ("+longitude+", "+latitude+"))) as ?distance ?url ?geo WHERE { \
 			?place geo:geometry ?geo .\
 			?place a place:" + catType + " . \
 			?place rdfs:label ?placeName . \
@@ -52,11 +56,22 @@ $(function(){
 				places.push({
 					uri: results[i].place.value,
 					name: results[i].placeName.value,
-					distance: results[i].distance.value,
-					url: results[i].url.value
+					geo: results[i].geo.value.replace("POINT(","").replace(")","").split(" ").reverse().toString(),
+					distance: Math.round( parseFloat(results[i].distance.value)*100)/100 ,
+					url: results[i].url != undefined ? results[i].url.value : "",
 				});
-			}
-			console.log('places: ' + places);
+				/*try {
+				    places.push({
+				        url: results[i].url.value
+				    });
+				}
+				catch(TypeError){
+				    places.push({
+				        url: ""
+				    });
+				}
+			}*/
+			//console.log('places: ' + places);
 			
 			$.mobile.changePage("pages/results.html");
 		});

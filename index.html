@@ -29,10 +29,15 @@
 	<body>
 		<!-- TEMPLATES -->
 		<script id="placeTemplate" type="text/x-jquery-tmpl">
-			<li>
-				<a href="#" data-url="${url}">
-					${name}
-				</a>
+			<li> 
+                <h3>${name}
+                    <a href="http://maps.google.com/?q=${geo}">map</a>
+                    {{if url != ''}} 
+                        <a href="${url}">link</a>
+                    {{/if}}  
+
+		        </h3>
+	            <p class="ui-li-aside"><strong>${distance}</strong>Km</p>
 			</li>
 		</script>
 		
@@ -49,11 +54,12 @@
                 <optgroup label="Entertainment">
 	                <option value="Restaurant">Restaurants</option>
 	                <option value="Bar">Bars</option>
-	                <option value="CoffeeShop">Coffee Shops</option>
-	                <option value="express">Cinemas</option>
+	                <option value="Cafe">Cafe</option>
+	                <option value="Cinema">Cinemas</option>
                 </optgroup>
                 <optgroup label="Tourism">
-	                <option value="standard">Restaurants</option>
+	                <option value="TourismMuseum">Tourism Museums</option>
+   	                <option value="HistoricalMuseum">Historical Museums</option>
 	                <option value="rush">Bars</option>
 	                <option value="express">Cinemas</option>
                 </optgroup>
@@ -70,11 +76,11 @@
 
 		        <div data-role="fieldcontain">
                 	<label for="slider">Radious (Km)</label>
-                	<input type="range" name="slider" id="formRadius" value="1" min="1" max="20"  />
+                	<input type="range" name="slider" id="formRadius" value="3" min="1" max="20"  />
                 </div>
                 <div data-role="fieldcontain">
-                	<label for="slider">Radious (Km)</label>
-                	<input type="range" name="slider" id="formResults" value="10" min="10" max="30"  />
+                	<label for="slider">Results</label>
+                	<input type="range" name="slider" id="formResults" value="15" min="10" max="30"  />
                 </div>
             </div>
 
